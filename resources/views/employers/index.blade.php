@@ -9,7 +9,7 @@
         @foreach($employers as $employer)
             <li class="job-item opacity-0">
                 <x-card href="/employers/{{ $employer->id }}">
-                    <p class="text-xl font-semibold">{{ $employer->name }}</p>  
+                    <p class="text-xl font-semibold">{{ $employer->name }}</p>
                 </x-card>
             </li>
         @endforeach

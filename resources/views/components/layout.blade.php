@@ -20,7 +20,10 @@ This example requires updating your template:
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="shrink-0">
-                    <a class="italic font-bold text-xl bg-red-600 text-white p-1">Jobsite</a>
+                    <a class="italic font-bold text-xl text-white p-1"
+                       style="background-image: repeating-linear-gradient(45deg, #ef4444, #ef4444 10px, #dc2626 10px, #dc2626 20px);">
+                        Jobsite
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">

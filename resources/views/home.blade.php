@@ -1,6 +1,6 @@
  <x-layout>
      <x-slot:heading>
-         Welcome To Jobsite!
+         Home
      </x-slot:heading>
 
      <header>Home</header>

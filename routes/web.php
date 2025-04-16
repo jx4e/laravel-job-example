@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use App\Models\Employer;
 use App\Models\Job;
 use Illuminate\Support\Arr;
@@ -20,13 +21,7 @@ Route::get('/about', function () {
  */
 
 // Index
-Route::get('/jobs', function () {
-    $jobs = Job::with('employer', 'tags')->latest()->paginate(5);
-
-    return view('jobs.index', [
-        'jobs' => $jobs
-    ]);
-});
+Route::get('jobs', [JobController::class, 'index']);
 
 // Create
 Route::get('/jobs/create', function () {
@@ -34,8 +29,8 @@ Route::get('/jobs/create', function () {
 });
 
 // Show
-Route::get('/jobs/{job}', function ($id) {
-    return view('jobs.show', ['job' => Job::find($id)]);
+Route::get('/jobs/{job}', function (Job $job) {
+    return view('jobs.show', ['job' => $job]);
 });
 
 // Store
@@ -57,12 +52,15 @@ Route::post('/jobs', function () {
 });
 
 // Edit
-Route::get('/jobs/{id}/edit', function ($id) {
-    return view('jobs.edit', ['job' => Job::find($id)]);
+Route::get('/jobs/{job}/edit', function (Job $job) {
+    return view('jobs.edit', ['job' => $job]);
 });
 
 // Update
-Route::patch('/jobs/{id}', function ($id) {
+Route::patch('/jobs/{job}', function (Job $job) {
+    // authorize
+    // TODO
+
     // validate
     request()->validate([
         'title' => ['required', 'min:3'],
@@ -70,11 +68,7 @@ Route::patch('/jobs/{id}', function ($id) {
         'description' => ['required', 'min:25'],
     ]);
 
-    // authorize
-    // TODO
-
     // update job
-    $job = Job::findOrFail($id);
     $job->title = request('title');
     $job->salary = request('salary');
     $job->description = request('description');
@@ -87,12 +81,11 @@ Route::patch('/jobs/{id}', function ($id) {
 });
 
 // Destroy
-Route::delete('/jobs/{id}', function ($id) {
+Route::delete('/jobs/{job}', function (Job $job) {
     // authorize
     // TODO
 
     // delete
-    $job = Job::findOrFail($id);
     $job->delete();
 
     // redirect
@@ -113,6 +106,6 @@ Route::get('/employers', function () {
     ]);
 });
 
-Route::get('/employers/{id}', function ($id) {
-    return view('employers.show', ['employer' => Employer::find($id)]);
+Route::get('/employers/{employer}', function (Employer $employer) {
+    return view('employers.show', ['employer' => $employer]);
 });
